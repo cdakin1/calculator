@@ -7,7 +7,12 @@ import Input from "./input";
 class App extends Component {
   render() {
     return (
-      <Grid container justify="center">
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        style={{ minHeight: "100vh" }}
+      >
         <Card style={{ width: 300, maxHeight: 400 }}>
           <Grid item sm={12}>
             <Result {...this.props} />
