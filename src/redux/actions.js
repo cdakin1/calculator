@@ -1,26 +1,33 @@
-export const add = value => ({
-  type: CALCULATION_TYPE.ADD,
-  payload: { value }
+export const add = () => ({
+  type: CALCULATION_TYPE.ADD
 });
 
-export const subtract = value => ({
-  type: CALCULATION_TYPE.SUBTRACT,
-  payload: { value }
+export const subtract = () => ({
+  type: CALCULATION_TYPE.SUBTRACT
 });
 
-export const multiply = value => ({
-  type: CALCULATION_TYPE.MULTIPLY,
-  payload: { value }
+export const multiply = () => ({
+  type: CALCULATION_TYPE.MULTIPLY
 });
 
-export const divide = value => ({
-  type: CALCULATION_TYPE.DIVIDE,
-  payload: { value }
+export const divide = () => ({
+  type: CALCULATION_TYPE.DIVIDE
+});
+
+export const equals = () => ({
+  type: CALCULATION_TYPE.EQUALS
+});
+
+export const updateCurrentValue = value => ({
+  type: CALCULATION_TYPE.UPDATE_CURRENT_VALUE,
+  payload: value
 });
 
 export const CALCULATION_TYPE = {
   ADD: "ADD",
   SUBTRACT: "SUBTRACT",
   MULTIPLY: "MULTIPLY",
-  DIVIDE: "DIVIDE"
+  DIVIDE: "DIVIDE",
+  EQUALS: "EQUALS",
+  UPDATE_CURRENT_VALUE: "UPDATE_CURRENT_VALUE"
 };
