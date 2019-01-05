@@ -21,7 +21,6 @@ const calculation = (
   action
 ) => {
   const { payload, type } = action;
-  console.log(state);
 
   if (type === CALCULATION_TYPE.CLEAR) {
     return {
@@ -32,9 +31,13 @@ const calculation = (
     };
   }
 
-  if (type === CALCULATION_TYPE.EQUALS && state.lastPressedFunction) {
+  if (
+    type === CALCULATION_TYPE.EQUALS &&
+    state.lastPressedFunction &&
+    state.lastPressedFunction !== CALCULATION_TYPE.EQUALS
+  ) {
     return {
-      lastPressedFunction: "",
+      lastPressedFunction: CALCULATION_TYPE.EQUALS,
       currentValue: calculate(
         state.lastPressedFunction,
         state.previousValue,
@@ -63,7 +66,11 @@ const calculation = (
     let currentValue = state.currentValue;
     let previousValue = state.previousValue;
 
-    if (previousValue && state.lastPressedFunction) {
+    if (
+      previousValue &&
+      state.lastPressedFunction &&
+      state.lastPressedFunction !== CALCULATION_TYPE.EQUALS
+    ) {
       currentValue = calculate(
         state.lastPressedFunction,
         state.previousValue,
