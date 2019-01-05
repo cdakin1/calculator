@@ -37,6 +37,7 @@ const calculation = (
     state.lastPressedFunction !== CALCULATION_TYPE.EQUALS
   ) {
     return {
+      ...state,
       lastPressedFunction: CALCULATION_TYPE.EQUALS,
       currentValue: calculate(
         state.lastPressedFunction,
@@ -82,7 +83,6 @@ const calculation = (
     }
 
     return {
-      ...state,
       lastPressedFunction: type,
       previousValue,
       currentValue,

@@ -35,7 +35,8 @@ describe("calculation reducer", () => {
     ).toEqual({
       currentValue: 15,
       lastPressedFunction: "EQUALS",
-      lastPayload: null
+      lastPayload: null,
+      previousValue: 5
     });
   });
 });
