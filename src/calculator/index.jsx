@@ -6,7 +6,6 @@ import Input from "./input";
 
 class App extends Component {
   render() {
-    console.log(this.props);
     return (
       <Grid container justify="center">
         <Card style={{ width: 300, maxHeight: 400 }}>

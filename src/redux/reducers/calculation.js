@@ -12,10 +12,25 @@ const calculate = (func, value1, value2) => {
 };
 
 const calculation = (
-  state = { previousValue: null, currentValue: 0, lastPressedFunction: "" },
+  state = {
+    previousValue: null,
+    currentValue: 0,
+    lastPressedFunction: "",
+    lastPayload: null
+  },
   action
 ) => {
   const { payload, type } = action;
+  console.log(state);
+
+  if (type === CALCULATION_TYPE.CLEAR) {
+    return {
+      lastPressedFunction: "",
+      previousValue: null,
+      currentValue: 0,
+      lastPayload: null
+    };
+  }
 
   if (type === CALCULATION_TYPE.EQUALS && state.lastPressedFunction) {
     return {
@@ -24,16 +39,23 @@ const calculation = (
         state.lastPressedFunction,
         state.previousValue,
         state.currentValue
-      )
+      ),
+      lastPayload: payload
     };
   }
 
   if (type === CALCULATION_TYPE.UPDATE_CURRENT_VALUE) {
     return {
       ...state,
-      currentValue: state.currentValue
-        ? "" + state.currentValue + payload
-        : payload
+      currentValue:
+        state.currentValue && state.lastPayload
+          ? "" + state.currentValue + payload
+          : payload,
+      previousValue:
+        state.currentValue && state.lastPressedFunction
+          ? state.currentValue
+          : state.previousValue,
+      lastPayload: payload
     };
   }
 
@@ -56,7 +78,8 @@ const calculation = (
       ...state,
       lastPressedFunction: type,
       previousValue,
-      currentValue
+      currentValue,
+      lastPayload: payload
     };
   }
 

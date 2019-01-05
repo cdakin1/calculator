@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 
 const buttonRows = [[7, 8, 9], [4, 5, 6], [1, 2, 3], [0, "."]];
 const actionRows = [
+  { value: "C", action: "clear" },
   { value: "/", action: "divide" },
   { value: "X", action: "multiply" },
   { value: "-", action: "subtract" },
@@ -13,13 +14,10 @@ const actionRows = [
 class Input extends Component {
   render() {
     const handleNumberInput = e => {
-      console.log(e.currentTarget.value);
-      console.log(this.props);
       this.props.updateCurrentValue(e.currentTarget.value);
     };
 
     const handleActionInput = e => {
-      console.log(e.currentTarget.name);
       this.props[e.currentTarget.name]();
     };
 

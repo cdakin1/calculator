@@ -5,6 +5,7 @@ import {
   multiply,
   divide,
   equals,
+  clear,
   updateCurrentValue
 } from "./redux/actions";
 import Calculator from "./calculator";
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
   multiply: () => dispatch(multiply()),
   divide: () => dispatch(divide()),
   equals: () => dispatch(equals()),
+  clear: () => dispatch(clear()),
   updateCurrentValue: value => dispatch(updateCurrentValue(value))
 });
 
