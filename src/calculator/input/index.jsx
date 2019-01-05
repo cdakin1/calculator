@@ -2,20 +2,36 @@ import React, { Component } from "react";
 import { Button, Grid } from "@material-ui/core";
 
 const buttonRows = [[7, 8, 9], [4, 5, 6], [1, 2, 3], [0, "."]];
-const actionRows = ["/", "X", "-", "+", "="];
+const actionRows = [
+  { value: "/", action: "divide" },
+  { value: "X", action: "multiply" },
+  { value: "-", action: "subtract" },
+  { value: "+", action: "add" },
+  { value: "=", action: "equals" }
+];
 
 class Input extends Component {
   render() {
-    const handleInput = e => console.log(e.currentTarget.value);
+    const handleNumberInput = e => {
+      console.log(e.currentTarget.value);
+      console.log(this.props);
+      this.props.updateCurrentValue(e.currentTarget.value);
+    };
 
-    const buttonItemCreator = (value, isAction) => (
+    const handleActionInput = e => {
+      console.log(e.currentTarget.name);
+      this.props[e.currentTarget.name]();
+    };
+
+    const buttonItemCreator = (value, isAction, action) => (
       <Button
         key={`button${value}`}
-        onClick={handleInput}
+        onClick={isAction ? handleActionInput : handleNumberInput}
         style={{ width: "100%" }}
         variant={isAction ? "contained" : "outlined"}
         color={isAction ? "primary" : "default"}
         value={value}
+        name={action}
       >
         {value}
       </Button>
@@ -37,8 +53,8 @@ class Input extends Component {
         <Grid item xs={3}>
           <Grid container>
             {actionRows.map(r => (
-              <Grid key={`action${r}`} item xs={12}>
-                {buttonItemCreator(r, true)}
+              <Grid key={`action${r.value}`} item xs={12}>
+                {buttonItemCreator(r.value, true, r.action)}
               </Grid>
             ))}
           </Grid>

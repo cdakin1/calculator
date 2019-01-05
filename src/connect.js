@@ -1,5 +1,12 @@
 import { connect } from "react-redux";
-import { add, subtract, multiply, divide } from "./redux/actions";
+import {
+  add,
+  subtract,
+  multiply,
+  divide,
+  equals,
+  updateCurrentValue
+} from "./redux/actions";
 import Calculator from "./calculator";
 
 const mapStateToProps = state => ({
@@ -8,10 +15,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: value => dispatch(add(value)),
-  subtract: value => dispatch(subtract(value)),
-  multiply: value => dispatch(multiply(value)),
-  divide: value => dispatch(divide(value))
+  add: () => dispatch(add()),
+  subtract: () => dispatch(subtract()),
+  multiply: () => dispatch(multiply()),
+  divide: () => dispatch(divide()),
+  equals: () => dispatch(equals()),
+  updateCurrentValue: value => dispatch(updateCurrentValue(value))
 });
 
 export default connect(

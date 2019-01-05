@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Card, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { unstable_Box as Box } from "@material-ui/core/Box";
 
 class Result extends Component {
