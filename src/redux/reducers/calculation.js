@@ -1,4 +1,5 @@
 import { CALCULATION_TYPE } from "../actions";
+import math from "mathjs";
 
 const calcObject = {
   ADD: "+",
@@ -7,10 +8,15 @@ const calcObject = {
   DIVIDE: "/"
 };
 
+// https://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding/32605063#32605063
+const roundTo = n => {
+  var multiplicator = Math.pow(10, 4);
+  n = parseFloat((n * multiplicator).toFixed(11));
+  return Math.round(n) / multiplicator;
+};
+
 const calculate = (func, value1, value2) => {
-  const result = eval(`${value1} ${calcObject[func]} ${value2}`);
-  console.log(func, value1, value2);
-  console.log(result);
+  const result = roundTo(math.eval(`${value1} ${calcObject[func]} ${value2}`));
   return result;
 };
 
