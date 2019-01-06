@@ -9,6 +9,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
+import FlipMove from "react-flip-move";
 
 const memoryItemCreator = (value, removeFromMemory, setCurrentValue) => {
   const handleClick = () => setCurrentValue(value);
@@ -37,9 +38,11 @@ class Memory extends Component {
 
     const memoryItems = (
       <List dense>
-        {memory.map(value =>
-          memoryItemCreator(value, removeFromMemory, setCurrentValue)
-        )}
+        <FlipMove>
+          {memory.map(value =>
+            memoryItemCreator(value, removeFromMemory, setCurrentValue)
+          )}
+        </FlipMove>
       </List>
     );
 
