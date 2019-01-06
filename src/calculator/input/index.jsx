@@ -4,6 +4,7 @@ import { Button, Grid } from "@material-ui/core";
 const buttonRows = [[7, 8, 9], [4, 5, 6], [1, 2, 3], [0, "."]];
 const actionRows = [
   { value: "C", action: "clear" },
+  { value: "M", action: "addToMemory" },
   { value: "/", action: "divide" },
   { value: "X", action: "multiply" },
   { value: "-", action: "subtract" },

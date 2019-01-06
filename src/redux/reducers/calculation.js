@@ -8,7 +8,10 @@ const calcObject = {
 };
 
 const calculate = (func, value1, value2) => {
-  return eval(`${value1} ${calcObject[func]} ${value2}`);
+  const result = eval(`${value1} ${calcObject[func]} ${value2}`);
+  console.log(func, value1, value2);
+  console.log(result);
+  return result;
 };
 
 const calculation = (
@@ -21,15 +24,6 @@ const calculation = (
   action
 ) => {
   const { payload, type } = action;
-
-  if (type === CALCULATION_TYPE.CLEAR) {
-    return {
-      lastPressedFunction: "",
-      previousValue: null,
-      currentValue: 0,
-      lastPayload: null
-    };
-  }
 
   if (
     type === CALCULATION_TYPE.EQUALS &&
@@ -48,49 +42,58 @@ const calculation = (
     };
   }
 
-  if (type === CALCULATION_TYPE.UPDATE_CURRENT_VALUE) {
-    return {
-      ...state,
-      currentValue:
-        state.currentValue && state.lastPayload
-          ? "" + state.currentValue + payload
-          : payload,
-      previousValue:
-        state.currentValue && state.lastPressedFunction
-          ? state.currentValue
-          : state.previousValue,
-      lastPayload: payload
-    };
+  switch (type) {
+    case CALCULATION_TYPE.CLEAR:
+      return {
+        lastPressedFunction: "",
+        previousValue: null,
+        currentValue: 0,
+        lastPayload: null
+      };
+
+    case CALCULATION_TYPE.SET_CURRENT_VALUE:
+      return {
+        ...state,
+        currentValue: payload
+      };
+
+    case CALCULATION_TYPE.UPDATE_CURRENT_VALUE:
+      return {
+        ...state,
+        currentValue:
+          state.currentValue && state.lastPayload
+            ? "" + state.currentValue + payload
+            : payload,
+        lastPayload: payload
+      };
+
+    case CALCULATION_TYPE[type]:
+      let currentValue = state.currentValue;
+      let previousValue = state.previousValue;
+
+      if (
+        previousValue &&
+        state.lastPressedFunction &&
+        state.lastPressedFunction !== CALCULATION_TYPE.EQUALS
+      ) {
+        currentValue = calculate(
+          state.lastPressedFunction,
+          state.previousValue,
+          currentValue
+        );
+      } else {
+        previousValue = currentValue;
+      }
+
+      return {
+        lastPressedFunction: type,
+        previousValue,
+        currentValue,
+        lastPayload: payload
+      };
+    default:
+      return state;
   }
-
-  if (CALCULATION_TYPE[type]) {
-    let currentValue = state.currentValue;
-    let previousValue = state.previousValue;
-
-    if (
-      previousValue &&
-      state.lastPressedFunction &&
-      state.lastPressedFunction !== CALCULATION_TYPE.EQUALS
-    ) {
-      currentValue = calculate(
-        state.lastPressedFunction,
-        state.previousValue,
-        currentValue
-      );
-    } else {
-      previousValue = currentValue;
-      currentValue = 0;
-    }
-
-    return {
-      lastPressedFunction: type,
-      previousValue,
-      currentValue,
-      lastPayload: payload
-    };
-  }
-
-  return state;
 };
 
 export default calculation;
