@@ -5,7 +5,6 @@ import { unstable_Box as Box } from "@material-ui/core/Box";
 class Result extends Component {
   render() {
     const { currentResult } = this.props;
-    console.log(currentResult);
     return (
       <Typography component="div">
         <Box style={{ margin: 20 }} textAlign="right" fontSize={24}>
